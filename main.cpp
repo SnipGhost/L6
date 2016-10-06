@@ -1,4 +1,5 @@
 //-----------------------------------------------------------------------------
+#pragma GCC diagnostic ignored "-Wwrite-strings"
 #include <math.h>
 #include "printing.h"
 using namespace std;
@@ -14,16 +15,16 @@ inline double f2(const double &x) { return sin(22*x); }
 inline double f3(const double &x) { return x*x*x*x; }
 inline double f4(const double &x) { return atan(x); }
 //-----------------------------------------------------------------------------
-inline double fi1(const double &a, const double &b) 
+inline double fi1(const double &a, const double &b)
 { return (b*b - a*a) / 2.0; }
 //-----------------------------------------------------------------------------
-inline double fi2(const double &a, const double &b) 
+inline double fi2(const double &a, const double &b)
 { return (cos(a*22.0) - cos(b*22.0)) / 22.0; }
 //-----------------------------------------------------------------------------
-inline double fi3(const double &a, const double &b) 
+inline double fi3(const double &a, const double &b)
 { return (b*b*b*b*b - a*a*a*a*a) / 5.0; }
 //-----------------------------------------------------------------------------
-inline double fi4(const double &a, const double &b) 
+inline double fi4(const double &a, const double &b)
 { return ( b*atan(b) - a*atan(a) - (log(b*b+1)-log(a*a+1)) / 2.0 ); }
 //-----------------------------------------------------------------------------
 double IntRect(TPF f, double a, double b, double EPS, int &n)
@@ -36,11 +37,11 @@ double IntRect(TPF f, double a, double b, double EPS, int &n)
 		s = 0;
 		double h = (b - a) / step_count;
 		for (long int i = 1; i <= step_count; ++i) {
-			double x = a + (i-1)*h + h/2; 
+			double x = a + (i-1)*h + h/2;
 			s += f(x);
 		}
 		s *= h;
-		r = abs(s - sd) / 3;
+		r = fabs(s - sd) / 3;
 		step_count *= 2;
 	} while (r >= EPS/10 && n < NMAX);
 	n = step_count;
@@ -56,13 +57,13 @@ double IntTrap(TPF f, double a, double b, double EPS, int &n)
 		sd = s;
 		s = f(a);
 		double h = (b - a) / step_count;
-		for (int i = 1; i < step_count; ++i) {		
+		for (int i = 1; i < step_count; ++i) {
 			double x = a + i*h;
 			s += 2*f(x);
 		}
 		s += f(a + step_count*h);
 		s *= (0.5 * h);
-		r = abs(s - sd) / 3;
+		r = fabs(s - sd) / 3;
 		step_count *= 2;
 	} while (r >= EPS/10 && n < NMAX);
 	n = step_count;
@@ -70,13 +71,13 @@ double IntTrap(TPF f, double a, double b, double EPS, int &n)
 }
 //-----------------------------------------------------------------------------
 int main()
-{	
+{
 	double a, b, eps;
 	InputData(a, b, eps);
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	TPF function[4] = {f1, f2, f3, f4};
 	TPI integral[4] = {fi1, fi2, fi3, fi4};
-	char * title[4] = {"y=x ", "y=sin(22x)", "y=x^4 ", "y=arctg(x)"};
+	char * title[4] = {"y=x \0", "y=sin(22x)\0", "y=x^4 \0", "y=arctg(x)\0"};
 	I_print  res[4];
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	for (int i = 0; i < 4; ++i) {
