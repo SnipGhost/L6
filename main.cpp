@@ -1,5 +1,4 @@
 //-----------------------------------------------------------------------------
-#pragma GCC diagnostic ignored "-Wwrite-strings"
 #include <math.h>
 #include "printing.h"
 using namespace std;
@@ -75,10 +74,11 @@ int main()
 	double a, b, eps;
 	InputData(a, b, eps);
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	I_print  res[4];
 	TPF function[4] = {f1, f2, f3, f4};
 	TPI integral[4] = {fi1, fi2, fi3, fi4};
-	char * title[4] = {"y=x \0", "y=sin(22x)\0", "y=x^4 \0", "y=arctg(x)\0"};
-	I_print  res[4];
+	char * title[4] = {(char*)"y=x \0", (char*)"y=sin(22x)\0",
+                           (char*)"y=x^4 \0", (char*)"y=arctg(x)\0"};
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	for (int i = 0; i < 4; ++i) {
 		int n = 0;
