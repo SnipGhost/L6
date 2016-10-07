@@ -1,4 +1,4 @@
-//----------------------------------------------------------------------------
+п»ї//----------------------------------------------------------------------------
 #include "printing.h"
 using namespace std;
 //---------------------------------------------------------------------------
@@ -12,13 +12,13 @@ void InputData(double &a, double &b, double &EPS)
 //---------------------------------------------------------------------------
 void PrintTabl(I_print i_prn[], int k)
 {
-	const int m = 4;					// Число столбцов таблицы
-	const int wn[m] = {12,18,18,10};	// Ширина столбцов таблицы
+	const int m = 4;					// Р§РёСЃР»Рѕ СЃС‚РѕР»Р±С†РѕРІ С‚Р°Р±Р»РёС†С‹
+	const int wn[m] = {12,18,18,10};	// РЁРёСЂРёРЅР° СЃС‚РѕР»Р±С†РѕРІ С‚Р°Р±Р»РёС†С‹
 	const char *title[m] = {"Function", "Integral", "IntSum", "N "};
 	int size[m];
 	for(int i = 0;i < m; i++)
 	size[i] = strlen(title[i]);
-	// шапка таблицы
+	// С€Р°РїРєР° С‚Р°Р±Р»РёС†С‹
 	cout << char(218) << setfill(char(196));
 	for(int j = 0; j < m-1; j++)
 		cout<<setw(wn[j]) << char(194);
@@ -29,7 +29,7 @@ void PrintTabl(I_print i_prn[], int k)
 			 << setw((wn[j]-size[j])/2) << char(179);
 	cout<<endl;
 	for (int i = 0; i < k; i++)
-	{ //заполнение таблицы
+	{ //Р·Р°РїРѕР»РЅРµРЅРёРµ С‚Р°Р±Р»РёС†С‹
 		cout << char(195) << fixed;
 		for (int j = 0; j < m-1; j++)
 			cout << setfill(char(196)) << setw(wn[j]) << char(197);
@@ -40,12 +40,12 @@ void PrintTabl(I_print i_prn[], int k)
 			 << setw(wn[2]-1) << i_prn[i].i_sum << char(179)
 			 << setw(wn[3]-1) << i_prn[i].n << char(179) << endl;	
 	}
-	//низ таблицы
+	//РЅРёР· С‚Р°Р±Р»РёС†С‹
 	cout << char(192) << setfill(char(196));
 	for(int j = 0; j < m-1; j++)
 		cout << setw(wn[j]) << char(193);
 	cout << setw(wn[m-1]) << char(217) << endl;
 	cout << setprecision(6) << setfill(' '); 
-	//восстановление первоначальных значений
+	//РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅС‹С… Р·РЅР°С‡РµРЅРёР№
 }
 //----------------------------------------------------------------------------
