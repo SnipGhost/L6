@@ -2,7 +2,7 @@
 #include "printing.h"
 using namespace std;
 //---------------------------------------------------------------------------
-void InputData(double &a, double &b, double &EPS)
+void InputData(double &a, double &b, double &EPS) // Абстрагируем ввод данных
 {
 	cout << "Input a, b: ";
 	cin >> a >> b;
@@ -10,10 +10,10 @@ void InputData(double &a, double &b, double &EPS)
 	cin >> EPS;
 }
 //---------------------------------------------------------------------------
-void PrintTabl(I_print i_prn[], int k)
+void PrintTabl(I_print i_prn[], int k) // Печатаем массив данных
 {
-	const int m = 4;					// Число столбцов таблицы
-	const int wn[m] = {12,18,18,10};	// Ширина столбцов таблицы
+	const int m = 4;                   // Число столбцов таблицы
+	const int wn[m] = {12,18,18,10};   // Ширина столбцов таблицы
 	const char *title[m] = {"Function", "Integral", "IntSum", "N "};
 	int size[m];
 	for(int i = 0;i < m; i++)

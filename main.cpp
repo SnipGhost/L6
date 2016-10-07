@@ -28,8 +28,9 @@ inline double fi4(const double &a, const double &b)
 //-----------------------------------------------------------------------------
 double IntRect(TPF f, double a, double b, double EPS, int &n)
 {
-	long int step_count = STEP;
-	double s = 0, sd, r;
+	long int step_count = STEP; // Количество разбиений
+	double s = 0, sd;           // Приближенное значение интеграла
+	double r;                   // Оценочное значение погрешности
 	do {
 		++n;
 		sd = s;
@@ -40,10 +41,10 @@ double IntRect(TPF f, double a, double b, double EPS, int &n)
 			s += f(x);
 		}
 		s *= h;
-		r = fabs(s - sd) / 3;
+		r = fabs(s - sd) / 3; // Оцениваем погрешность
 		step_count *= 2;
 	} while (r >= EPS/10 && n < NMAX);
-	n = step_count;
+	n = step_count; // Передаем кол-во итераций
 	return s;
 }
 //-----------------------------------------------------------------------------
@@ -62,41 +63,41 @@ double IntTrap(TPF f, double a, double b, double EPS, int &n)
 		}
 		s += f(a + step_count*h);
 		s *= (0.5 * h);
-		r = fabs(s - sd) / 3;
+		r = fabs(s - sd) / 3; // Оцениваем погрешность
 		step_count *= 2;
 	} while (r >= EPS/10 && n < NMAX);
-	n = step_count;
+	n = step_count; // Передаем кол-во итераций
 	return s;
 }
 //-----------------------------------------------------------------------------
 int main()
 {
 	double a, b, eps;
-	InputData(a, b, eps);
+	InputData(a, b, eps); // Ввводим необходимые данные
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	I_print  res[4];
-	TPF function[4] = {f1, f2, f3, f4};
-	TPI integral[4] = {fi1, fi2, fi3, fi4};
+	I_print  res[4];                        // Массив данных для вывода
+	TPF function[4] = {f1, f2, f3, f4};     // Интегрируемые функции
+	TPI integral[4] = {fi1, fi2, fi3, fi4}; // Функции точного интеграла
 	char * title[4] = {(char*)"y=x \0", (char*)"y=sin(22x)\0",
 	                   (char*)"y=x^4 \0", (char*)"y=arctg(x)\0"};
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 4; ++i) { // Интегрируем 4-ре функции IntRect-ом
 		int n = 0;
 		res[i].i_sum = IntRect(function[i], a, b, eps, n);
 		res[i].i_toch = integral[i](a, b);
 		res[i].n = n;
 		res[i].name = title[i];
 	}
-	PrintTabl(res, 4);
+	PrintTabl(res, 4); // Форматированный вывод данных
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 4; ++i) { // Интегрируем 4-ре функции IntTrap-ом
 		int n = 0;
 		res[i].i_sum = IntTrap(function[i], a, b, eps, n);
 		res[i].i_toch = integral[i](a, b);
 		res[i].n = n;
 		res[i].name = title[i];
 	}
-	PrintTabl(res, 4);
+	PrintTabl(res, 4); // Форматированный вывод данных
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	return 0;
 }
